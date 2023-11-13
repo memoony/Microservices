@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.IdentityServer", "IdentityServer\FreeCourse.IdentityServer\FreeCourse.IdentityServer.csproj", "{F94CD614-2129-4FE2-A3E6-98011206F4B4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStock", "PhotoStock", "{AACDDDD5-1C90-4223-8B84-DA5E145E0317}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Services.PhotoStock", "Services\PhotoStock\FreeCourse.Services.PhotoStock\FreeCourse.Services.PhotoStock.csproj", "{5C8F4801-14E3-451C-AF06-DD887CA3356C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +44,10 @@ Global
 		{F94CD614-2129-4FE2-A3E6-98011206F4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F94CD614-2129-4FE2-A3E6-98011206F4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F94CD614-2129-4FE2-A3E6-98011206F4B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C8F4801-14E3-451C-AF06-DD887CA3356C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C8F4801-14E3-451C-AF06-DD887CA3356C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C8F4801-14E3-451C-AF06-DD887CA3356C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C8F4801-14E3-451C-AF06-DD887CA3356C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +57,8 @@ Global
 		{4A744C91-5A8E-49D6-8458-A579B8CA69A0} = {F6B75184-BE19-4496-99A9-74EE43AB868C}
 		{3AD68ED3-BF45-47BE-8CFA-E169901DE3E3} = {2B11912C-AD7D-456C-8BB6-1A4B30AFBF0B}
 		{F94CD614-2129-4FE2-A3E6-98011206F4B4} = {4D38126E-6BD4-4A39-A17D-834812E9923E}
+		{AACDDDD5-1C90-4223-8B84-DA5E145E0317} = {B14996E6-F98E-4FE0-9E38-F74D5B58DFBD}
+		{5C8F4801-14E3-451C-AF06-DD887CA3356C} = {AACDDDD5-1C90-4223-8B84-DA5E145E0317}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7C7B5E34-8399-4BD1-ABB7-52118255AD13}
