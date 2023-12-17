@@ -14,11 +14,12 @@ namespace FreeCourse.Services.Discount.Services
 
         private readonly IMapper _mapper;
 
-        public DiscountService(IConfiguration configuration)
+        public DiscountService(IConfiguration configuration, IMapper mapper)
         {
             _configuration = configuration;
-
             _dbConnection = new NpgsqlConnection(_configuration.GetConnectionString("PostgreSql"));
+
+            _mapper = mapper;
         }
 
         public async Task<Response<List<DiscountDto>>> GetAll()
@@ -72,10 +73,10 @@ namespace FreeCourse.Services.Discount.Services
         {
             int status = await _dbConnection.ExecuteAsync("UPDATE discount SET userid = @UserId, rate = @Rate, code = @Code WHERE id = @Id", new
             {
-                Id = discountDto.Id,
-                UserId = discountDto.UserId,
-                Rate = discountDto.Rate,
-                Code = discountDto.Code
+                discountDto.Id,
+                discountDto.UserId,
+                discountDto.Rate,
+                discountDto.Code
             });
 
             if (status > 0)
