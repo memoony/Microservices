@@ -1,0 +1,15 @@
+﻿using FreeCourse.Services.Order.Application.Dtos;
+using FreeCourse.Shared.Dtos;
+using MediatR;
+
+namespace FreeCourse.Services.Order.Application.Commands
+{
+    public class CreateOrderCommand : IRequest<Response<CreatedOrderDto>>
+    {
+        public string BuyerId { get; set; }
+
+        public List<OrderItemDto> OrderItemsDto { get; set; }
+
+        public AddressDto AddressDto { get; set; }
+    }
+}

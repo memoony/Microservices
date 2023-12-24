@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
-
 using IdentityServer4;
 using IdentityServer4.Models;
 using System;
@@ -29,6 +28,10 @@ namespace FreeCourse.IdentityServer
                 new ApiResource("resource_discount")
                 {
                     Scopes = { "discount_fullpermission" }
+                },
+                new ApiResource("resource_order")
+                {
+                    Scopes = { "order_fullpermission" }
                 },
                 new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
             };
@@ -58,6 +61,7 @@ namespace FreeCourse.IdentityServer
                 new ApiScope("photo_stock_fullpermission","PhotoStock API için full erişim"),
                 new ApiScope("basket_fullpermission","Basket API için full erişim"),
                 new ApiScope("discount_fullpermission","Discount API için full erişim"),
+                new ApiScope("order_fullpermission","Order API için full erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
             };
 
@@ -94,6 +98,7 @@ namespace FreeCourse.IdentityServer
                     {
                         "basket_fullpermission",
                         "discount_fullpermission",
+                        "order_fullpermission",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Profile,
