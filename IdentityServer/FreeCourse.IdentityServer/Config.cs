@@ -33,6 +33,10 @@ namespace FreeCourse.IdentityServer
                 {
                     Scopes = { "order_fullpermission" }
                 },
+                new ApiResource("resource_payment")
+                {
+                    Scopes = { "payment_fullpermission" }
+                },
                 new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -62,6 +66,7 @@ namespace FreeCourse.IdentityServer
                 new ApiScope("basket_fullpermission","Basket API için full erişim"),
                 new ApiScope("discount_fullpermission","Discount API için full erişim"),
                 new ApiScope("order_fullpermission","Order API için full erişim"),
+                new ApiScope("payment_fullpermission","Payment API için full erişim"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
             };
 
@@ -99,6 +104,7 @@ namespace FreeCourse.IdentityServer
                         "basket_fullpermission",
                         "discount_fullpermission",
                         "order_fullpermission",
+                        "payment_fullpermission",
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.Profile,
