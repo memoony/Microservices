@@ -31,7 +31,7 @@ namespace FreeCourse.Web.Services
         {
             DiscoveryDocumentResponse discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = _serviceApiSettings.BaseUri,
+                Address = _serviceApiSettings.IdentityBaseUri,
                 Policy = new DiscoveryPolicy { RequireHttps = false }
             });
 
@@ -105,14 +105,90 @@ namespace FreeCourse.Web.Services
             return Response<bool>.Success(200);
         }
 
-        public Task<TokenResponse> GetAccessTokenByRefreshToken()
+        public async Task<TokenResponse> GetAccessTokenByRefreshToken()
         {
-            throw new NotImplementedException();
+            DiscoveryDocumentResponse discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _serviceApiSettings.IdentityBaseUri,
+                Policy = new DiscoveryPolicy { RequireHttps = false }
+            });
+
+            if (discovery.IsError)
+            {
+                throw discovery.Exception;
+            }
+
+            string refreshToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
+
+            RefreshTokenRequest refreshTokenRequest = new()
+            {
+                ClientId = _clientSettings.WebClientForUser.ClientId,
+                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+                RefreshToken = refreshToken,
+                Address = discovery.TokenEndpoint
+            };
+
+            TokenResponse token = await _httpClient.RequestRefreshTokenAsync(refreshTokenRequest);
+
+            if (token.IsError)
+            {
+                return null;
+            }
+
+            var authenticationTokens = new List<AuthenticationToken>()
+            {
+                new AuthenticationToken
+                {
+                    Name = OpenIdConnectParameterNames.AccessToken,
+                    Value = token.AccessToken
+                },
+                new AuthenticationToken
+                {
+                    Name = OpenIdConnectParameterNames.RefreshToken,
+                    Value = token.RefreshToken
+                },
+                new AuthenticationToken
+                {
+                    Name = OpenIdConnectParameterNames.ExpiresIn,
+                    Value = DateTime.Now.AddSeconds(token.ExpiresIn).ToString("o", CultureInfo.InvariantCulture)
+                }
+            };
+
+            AuthenticateResult authenticationResult = await _httpContextAccessor.HttpContext.AuthenticateAsync();
+
+            AuthenticationProperties properties = authenticationResult.Properties;
+            properties.StoreTokens(authenticationTokens);
+
+            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, authenticationResult.Principal, properties);
+
+            return token;
         }
 
-        public Task RevokeRefreshToken()
+        public async Task RevokeRefreshToken()
         {
-            throw new NotImplementedException();
+            var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _serviceApiSettings.IdentityBaseUri,
+                Policy = new DiscoveryPolicy { RequireHttps = false }
+            });
+
+            if (discovery.IsError)
+            {
+                throw discovery.Exception;
+            }
+
+            string refreshToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
+
+            TokenRevocationRequest tokenRevocationRequest = new()
+            {
+                ClientId = _clientSettings.WebClientForUser.ClientId,
+                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+                Address = discovery.RevocationEndpoint,
+                Token = refreshToken,
+                TokenTypeHint = "refresh_token"
+            };
+
+            await _httpClient.RevokeTokenAsync(tokenRevocationRequest);
         }
     }
 }
