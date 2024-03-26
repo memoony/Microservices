@@ -56,7 +56,7 @@ namespace FreeCourse.IdentityServer
                     // Eğer User tablosunda veri yoksa, uygulama ayağa kalkarken default bir kullanıcı oluşturuluyor.
                     if (!userManager.Users.Any())
                     {
-                        userManager.CreateAsync(new ApplicationUser { UserName = "mgursoy", Email = "mehmetmemoedgursoy@gmail.com", City = "Ankara" }, "Password123*").Wait();
+                        userManager.CreateAsync(new ApplicationUser { UserName = "mgursoy", Email = "mehmetgursoypdev@gmail.com", City = "Ankara" }, "Password123*").Wait();
                     }
                 }
 
