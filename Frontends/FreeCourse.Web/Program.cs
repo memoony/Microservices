@@ -12,6 +12,7 @@ builder.Services.Configure<ServiceApiSettings>(builder.Configuration.GetSection(
 builder.Services.Configure<ClientSettings>(builder.Configuration.GetSection("ClientSettings"));
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAccessTokenManagement();
 
 // DI Lifetimes
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
